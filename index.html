@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<!-- ||**********************|| -->
+<!-- || Madura Creator       || -->
+<!-- || beach.jm02@gmail.com || -->
+<!-- ||**********************|| -->
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css">
+  <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+  <title>IQRA 1</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      direction: ltr;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    body.fade-in {
+      opacity: 1;
+    }
+
+    body.fade-out {
+      opacity: 0;
+    }
+
+    @font-face {
+      font-family: 'AmiriCustom';
+      src: url('fonts/Amiri-Regular.ttf') format('truetype');
+    }
+
+    .item {
+      font-family: 'AmiriCustom';
+    }
+
+    header, footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      /* background: linear-gradient(135deg, #8b0000, #c62828); */
+      background: linear-gradient(to right, black, rgb(160, 3, 3), black);
+      color: white;
+      padding: 10px 15px;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    header {
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer {
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    main {
+      padding: 60px 10px 60px;
+      transition: margin-left 0.3s;
+    }
+    .line {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #ccc;
+      margin: 10px 0;
+      padding: 10px;
+    }
+    .item {
+      font-size: 32px;
+      margin: 5px 10px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .item.active {
+      /* background-color: #f44336;
+      color: white; */
+      background: var(--active-color, #ffd54f);
+      color: var(--active-text, #000);
+      transition: background 0.3s ease;
+    }
+    .button {
+      font-size: 20px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    @media (max-width: 500px) {
+    .button-kiri {
+      display: none;
+    }
+    .button-kanan {
+      display: none;
+    }
+    }
+
+.page-frame {
+  border: 5px solid rgb(14, 14, 14);
+  padding: 20px;
+  margin: 10px;
+  background: white;
+  min-height: 70vh;
+  position: relative;
+  overflow: hidden; /* penting */
+} 
+
+.page-frame::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 2px solid rgb(14, 14, 14);
+  pointer-events: none;   /* 🔥 PENTING */
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 60px;
+  /* background: linear-gradient(180deg, #7b1e1e, #a83232); */
+  background: linear-gradient(180deg, #130101, #a83232);
+  color: white;
+  /* padding-top: 60px; */
+  transition: 0.3s;
+  z-index: 2000;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+}
+
+.sidebar-header {
+  text-align: right;
+  padding: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 1500;
+}
+
+#overlay.active {
+  display: block;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.sidebar a:hover {
+  color: yellow;
+  padding-left: 45px;
+  background: rgba(255,255,255,0.15);
+}
+
+.menu-btn {
+  font-size: 22px;
+  cursor: pointer;
+}
+/* =========== */
+.page-content {
+  position: relative;
+}
+
+/* animasi masuk dari kanan */
+.slide-in-right {
+  animation: slideRight 0.35s ease forwards;
+}
+
+/* animasi masuk dari kiri */
+.slide-in-left {
+  animation: slideLeft 0.35s ease forwards;
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/* warna pilihan */
+.color-option {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  transition: transform 0.2s ease;
+}
+
+.color-option:hover {
+  transform: scale(1.2);
+}
+
+.text-color-option {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  transition: transform 0.2s ease;
+}
+
+.text-color-option:hover {
+  transform: scale(1.2);
+}
+/* ===== LAYOUT UTAMA ===== */
+.app-layout {
+  display: flex;
+  /* margin-top: 60px;   /* tinggi header */
+  /* margin-bottom: 60px; /* tinggi footer */
+  background: white;
+  height: calc(100vh - 120px);
+  overflow: hidden;
+}
+
+/* Drawer kiri */
+.page-drawer {
+  width: 0;
+  background: silver;
+  color: rgb(3, 1, 19);
+  overflow-y: auto;
+  transition: width 0.3s ease;
+}
+
+.page-drawer.open {
+  width: 220px;
+}
+
+/* Konten */
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  transition: 0.3s;
+  padding: 10px;
+}
+
+/* ===== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 1500;
+}
+
+.overlay.show {
+  display: block;
+}
+/*
+.active-page {
+ /* background: #444; 
+  background: yellow;
+  font-weight: bold; 
+} */
+.active-page:hover {
+  background: yellow;
+}
+
+/*.page-list li.active-page {
+  background: gold;
+  font-weight: bold;
+} */
+.page-list li.active-page {
+  background: gold;
+  font-weight: bold;
+  animation: highlightPage 0.4s ease;
+}
+
+@keyframes highlightPage {
+  from {
+    background: orange;
+  }
+  to {
+    background: gold;
+  }
+}
+
+.page-list li {
+  list-style: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.page-list li:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+/* progress bar halaman */
+.progress-bar {
+  height: 4px;
+  background: #ddd;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: gold;
+  transition: width 0.3s;
+}
+
+/*  css img dll   */
+.item img {
+  max-width: 100px;
+  display: block;
+  margin: auto;
+}
+
+/*=================*/
+.btn-tutorial{
+  color: white;
+  background: red;
+  width: 200px;
+  height: 40px;
+  font-size: medium;
+  font-weight:bold;
+  border-radius: 15px;
+  border-color: #22c55e;
+  border-width: 5px;
+  cursor: pointer;
+}
+
+/* Background tooltip */
+.introjs-tooltip {
+    /*background: #1d3c6f; /* biru gelap */
+    /*color: #ffffff; */
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Judul */
+.introjs-tooltip-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* Tombol Next */
+.introjs-button {
+    background: #22c55e;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    padding: 6px 12px;
+}
+
+.introjs-button:hover {
+    background: #16a34a;
+}
+
+/* Progress bar */
+.introjs-progressbar {
+    background: #22c55e;
+}
+  </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span onclick="toggleMenu()">✖</span>
+      </div><center>MENU IQRO</center><hr>
+          <a href="#">📖 IQRO 1</a>
+          <a href="iqro02.html">📖 IQRO 2</a>
+          <a href="iqro03.html">📖 IQRO 3</a>
+          <a href="iqro04.html">📖 IQRO 4</a>
+          <a href="iqro05.html">📖 IQRO 5</a>
+          <a href="iqro06.html">📖 IQRO 6</a>
+        <hr>
+          <a href="https://ra-adirasa.blogspot.com/">⚙️ RA ADIRASA</a>
+          <a href="about.html">⚙️ Tentang Aplikasi</a>
+          <div style="margin-top:20px;">
+  <strong>🎨 Warna Penunjuk :</strong>
+  <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; padding-left: 20px;">
+    
+    <div class="color-option" data-color="#ffd54f" style="background:#ffd54f;"></div>
+    <div class="color-option" data-color="#4caf50" style="background:#4caf50;"></div>
+    <div class="color-option" data-color="#2196f3" style="background:#2196f3;"></div>
+    <div class="color-option" data-color="#e91e63" style="background:#e91e63;"></div>
+    <div class="color-option" data-color="#ff5722" style="background:#ff5722;"></div>
+    
+  </div>
+</div>
+  
+  <div style="margin-top:20px;">
+  <strong>✍ Warna Tulisan Aktif :</strong>
+  <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; padding-left: 20px;">
+    
+    <div class="text-color-option" data-color="#000000" style="background:#000000;"></div>
+    <div class="text-color-option" data-color="#ffffff" style="background:#ffffff; border:1px solid #ccc;"></div>
+    <div class="text-color-option" data-color="#d32f2f" style="background:#d32f2f;"></div>
+    <div class="text-color-option" data-color="#1b5e20" style="background:#1b5e20;"></div>
+    <div class="text-color-option" data-color="#0d47a1" style="background:#0d47a1;"></div>
+    
+  </div>
+</div>
+<hr>
+  <div>
+    <strong>✍ Ukuran Tulisan :</strong><br><center>
+    <button class="button" onclick="changeFont(-2)">A-</button>
+    <button class="button" onclick="resetFont()">A</button>
+    <button class="button" onclick="changeFont(2)">A+</button></center>
+  </div>
+<br><br>
+
+  </div>
+
+  <header>
+    <!-- tambahan pro -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <!-- akhir pro -->
+    <div>
+      <span class="menu-btn" onclick="toggleMenu()" data-intro="Petunjuk 1 : Klik tombol ini untuk pilihan menu halaman IQRO 1-6 dan juga merubah pengaturan (warna penunjuk, warna tulisan aktif, ukuran huruf)! " data-step="1">☰</span>
+      <strong style="margin-left:10px; font-size: large; color: yellow;">IQRA 1</strong>
+    </div>
+    <div><b>بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</b></div>
+    <div>
+      <label>
+        <input type="checkbox" id="soundToggle" checked data-intro="Petunjuk 2 : Pilihan Ceklist untuk suara / unceklist untuk tidak ada suara pelafalan" data-step="2">
+        Suara
+      </label>
+    </div>
+  </header>
+
+  <main class="app-layout">
+  <!-- halaman -->
+<div class="page-drawer" id="pageDrawer">
+  <div class="drawer-header">
+    📖 Daftar Halaman
+  </div>
+
+  <ul class="page-list" id="pageList">
+    <!-- <li onclick="goToPage(0)" class="active-page">Halaman </li> -->
+  </ul>
+</div>
+
+<!-- konten utama -->
+ <div class="content-area">  
+  <div class="page-frame">
+    <div id="content" class="page-content"></div>
+  </div>
+  </div>
+  </main>
+
+<footer>
+  <button class="button-kiri" id="openPageList" data-intro="Petunjuk 3 : Klik tombol ini untuk menampilkan Daftar halaman" data-step="3"><font style="font-size: small;">Madura@Creator</font></button>
+  <button class="button" onclick="changePage(-1)" data-intro="Petunjuk 4 : Klik tombol ini untuk menggeser ke halaman sebelumnya (Back)" data-step="4"><<</button>
+
+  <span>
+    Halaman 
+    <input type="number" id="jumpPage" min="1" style="width:50px" data-intro="Petunjuk 5 : Klik kotak ini dan isi nomer untuk melompat ke halaman tertentu" data-step="5">
+    / <span id="totalPage"></span>
+  </span>
+
+  <button class="button" onclick="changePage(1)" data-intro="Petunjuk 6 : klik tombol ini untuk menggeser kehalaman berikutnya (Next)" data-step="6">>></button>
+
+  <!-- 🔥 Tambahan kontrol font -->
+  <div id="ukuran" data-intro="Petunjuk 7 : Klik tombol ini untuk mengatur ukuran huruf / tulisan (A- Mengecil, A Standar, A+ Membesar)" data-step="7">
+    <button class="button-kanan" onclick="changeFont(-2)">A-</button>
+    <button class="button-kanan" onclick="resetFont()">A</button>
+    <button class="button-kanan" onclick="changeFont(2)">A+</button>
+  </div>
+</footer>
+
+<script>
+  const pages = [
+    [
+      ['PETUNJUK MENGAJAR JILID 3'],
+      ['<font style="font-size: 80px">اِقْـرَأْ</font>'],
+      ['<button onclick="startTour()" class="btn-tutorial"> Panduan Singkat </button>'],
+      ['1. Sistem'],
+      ['a. CBSA (Cara Belajar Santri Aktif) guru sebagai penyimak saja, jangan sampai menuntun, kecuali hanya memberikan contoh pokok pelajaran.'],
+      ['b. Privat. Penyimakan secara seorang demi seorang.'],
+      ['Catatan : Bila klasikal, santri dikelompokkan berdasarkan persamaan kemampuan/jilid. Guru menerangkan pokok-pokok pelajaran secara klasikal dengan menggunakan peraga, dan secara acak santri dimohon membaca bahan latihan.'],
+      ['c. asistensi Santri yang lebih tinggi jilidnya dapat membantu menyimak santri lainnya.'],
+      ['2. Mengenai judul-judul, guru langsung memberi contoh bacaannya, jadi tidak perlu banyak komentar.'],
+      ['3. Sekali huruf dibaca betul, tidak boleh/jangan diulang lagi.'],
+      ['4. Bila santri keliru panjang-panjang dalam membaca huruf, maka guru harus dengan tegas memperingatkan (sebab yang betul dengan pendek-pendek) dan membacanya agar diputus-putus, bila perlu ditekan.'],
+      ['5. Bila santri keliru membaca huruf, cukup betulkan huruf-huruf yang keliru saja, dengan cara :'],
+      ['- Isyarat, umpamanya dengan kata-kata "eee...awas...stop...dsb"'],
+      ['- Bila dengan isyarah masih tetap keliru, berilah titian ingatan. Umpamanya santri lupa baca huruf ( ز ) ustadz cukup mengingatkan titiknya yaitu "bila tidak ada titiknya dibaca RO ( ر )" dst. Bila masih tetap lupa, barulah ditunjukkan bacaan yang sebenarnya.'],
+      ['6. Pelajaran satu ini berisi pengenalan huruf berfathah, maka sebelum dikuasai benar, jangan naik ke jilid berikutnya. Sedangkan bila kemampuan maksimal tetap belum fasikh, maka sementara boleh :'],
+      [' شَ lebih diarahkan ke bunyi SIA daripada keliru سَ '],
+      [' ضَ lebih diarahkan ke bunyi DHO (kendor) daripada keliru ظَ '],
+      [' ظَ lebih diarahkan ke bunyi ذَ (dibaca dengan bibir agak maju)'],
+      [' قَ lebih diarahkan ke bunyi  KO daripada keliru خَ '],
+      ['  Jadi bisa naik ke pelajaran dua dengan "her" pada huruf-huruf tertentu.'],
+      ['7. Bagi santri yang betul-betul menguasai pelajaran dan sekiranya mampu berpacu dalam menyelesaikan belajarnya maka membacanya boleh diloncat-loncatkan, tidak harus utuh sehalaman.'],
+      ['8. Untuk EBTA, sebaiknya ditentukan guru pengujinya. Demikian, semoga sukses. Amin']
+    ],
+    [
+      ['<font style="color: green;">Bacaan langsung A – B dst. Tidak perlu diurai/dieja. Bacalah dengan suara pendek.</font>'],
+      ['اَ بَ', ' ', 'أَ = اَ'],
+      ['اَ بَ اَ', ' ', 'بَ اَ بَ'],
+      ['اَ اَ بَ', '', 'بَ اَ اَ'],
+      ['اَ بَ بَ', '', 'بَ بَ اَ'],
+      ['اَ بَ اَ', ' ', 'بَ اَ بَ'],
+      ['بَ بَ بَ', ' ', 'اَ اَ اَ'],
+      ['اَ بَ', 'اَ بَ', 'اَ بَ']
+    ],
+    [
+      ['<font style="color: green;">BACAAN LANGSUNG A-BA-TA Dst. DENGAN SUARA PENDEK-PENDEK</font>'],
+      ['تَ', 'بَ'],
+      ['تَ بَ اَ', '', 'اَ تَ بَ'],
+      ['اَ بَ تَ', '', 'تَ اَ بَ'],
+      ['اَ تَ بَ', '', 'بَ تَ اَ'],
+      ['بَ اَ تَ', '', 'تَ اَ تَ'],
+      ['تَ تَ اَ', '', 'اَ تَ بَ'],
+      ['اَ بَ تَ', '', 'اَ بَ تَ']
+    ],
+    [
+      ['ثَ', 'تَ', 'بَ'],
+      ['ثَ بَ تَ', '', 'ثَ اَ بَ'],
+      ['بَ اَ ثَ', '', 'بَ تَ تَ'],
+      ['ثَ بَ ثَ', '', 'اَ تَ بَ'],
+      ['اَ ثَ ثَ', '', 'تَ بَ تَ'],
+      ['بَ ثَ ثَ', '', 'تَ تَ اَ'],
+      ['بَ تَ ثَ', '', 'ثَ بَ تَ'],
+      ['اَ بَ تَ ثَ', 'اَ بَ تَ ثَ']
+    ],
+    [
+      ['جَ'],
+      ['ثَ اَ جَ', '', 'اَ جَ جَ'],
+      ['ثَ بَ جَ', '', 'اَ تَ جَ'],
+      ['ثَ اَ جَ', '', 'بَ جَ ثَ'],
+      ['جَ اَ ثَ', '', 'جَ اَ بَ'],
+      ['ثَ جَ جَ', '', 'تَ اَ جَ'],
+      ['جَ ثَ ثَ', '', 'جَ اَ جَ'],
+      ['اَ بَ تَ ثَ جَ']
+    ],
+    [
+      ['حَ', 'جَ'],
+      ['جَ حَ ثَ', '', 'جَ اَ حَ'],
+      ['بَ حَ ثَ', '', 'حَ جَ تَ'],
+      ['اَ حَ بَ', '', 'جَ حَ تَ'],
+      ['حَ اَ حَ', '', 'جَ اَ ثَ'],
+      ['تَ اَ حَ', '', 'ثَ بَ حَ'],
+      ['اَ حَ حَ', '', 'اَ جَ جَ'],
+      ['اَ بَ تَ ثَ جَ حَ']
+    ],
+    [
+      ['خَ', 'حَ', 'جَ'],
+      ['جَ اَ خَ', '', 'حَ اَ خَ'],
+      ['خَ تَ جَ', '', 'ثَ اَ خَ'],
+      ['تَ حَ ثَ', '', 'بَ اَ خَ'],
+      ['بَ حَ ثَ', '', 'جَ اَ حَ'],
+      ['جَ حَ ثَ', '', 'تَ اَ خَ'],
+      ['جَ حَ خَ', '', 'اَ خَ خَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ']
+    ],
+    [
+      ['دَ'],
+      ['حَ دَ خَ', '', 'خَ دَ دَ'],
+      ['جَ حَ دَ', '', 'حَ دَ ثَ'],
+      ['حَ جَ دَ', '', 'خَ تَ دَ'],
+      ['جَ حَ خَ', '', 'ثَ بَ دَ'],
+      ['جَ دَ جَ', '', 'حَ بَ دَ'],
+      ['خَ دَ دَ', '', 'حَ جَ تَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ']
+    ],
+    [
+      ['ذَ', 'دَ'],
+      ['خَ دَ ذَ', '', 'دَ اَ ذَ'],
+      ['جَ حَ ذَ', '', 'اَ حَ دَ'],
+      ['ثَ اَ ذَ', '', 'خَ تَ دَ'],
+      ['ذَ بَ حَ', '', 'جَ حَ خَ'],
+      ['اَ خَ ذَ', '', 'حَ دَ ثَ'],
+      ['خَ دَ ذَ', '', 'دَ اَ ذَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ']
+    ],
+    [
+      ['زَ', 'رَ'],
+      ['ذَ رَ زَ', '', 'رَ اَ زَ'],
+      ['زَ خَ ذَ', '', 'زَ دَ رَ'],
+      ['ثَ رَ زَ', '', 'زَ حَ دَ'],
+      ['تَ زَ دَ', '', 'خَ رَ جَ'],
+      ['ثَ حَ ذَ', '', 'بَ زَ رَ'],
+      ['زَ اَ زَ', '', 'جَ اَ خَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ رَ زَ']
+    ],
+    [
+      ['رَ'],
+      ['خَ ذَ رَ', '', 'دَ ذَ رَ'],
+      ['جَ رَ ذَ', '', 'رَ حَ دَ'],
+      ['تَ ذَ رَ', '', 'رَ حَ ثَ'],
+      ['خَ رَ جَ', '', 'بَ رَ دَ'],
+      ['بَ رَ تَ', '', 'حَ ذَ رَ'],
+      ['حَ جَ رَ', '', 'خَ خَ ذَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ رَ']
+    ],
+    [
+      ['سَ'],
+      ['زَ رَ سَ', '', 'زَ اَ سَ'],
+      ['حَ سَ دَ', '', 'سَ خَ ذَ'],
+      ['جَ زَ رَ', '', 'سَ خَ ثَ'],
+      ['ذَ رَ سَ', '', 'سَ بَ تَ'],
+      ['زَ حَ دَ', '', 'سَ خَ ذَ'],
+      ['اَ بَ تَ', '', 'سَ جَ ثَ'],
+      ['ثَ جَ حَ خَ دَ ذَ رَ زَ سَ']
+    ],
+    [
+      ['شَ', 'سَ'],
+      ['زَ تَ شَ', 'سَ شَ شَ', 'سَ اَ شَ'],
+      ['شَ تَ ذَ', 'دَ رَ سَ', 'شَ ذَ ثَ'],
+      ['جَ رَ سَ', 'خَ شَ بَ', 'زَ حَ ثَ'],
+      ['حَ سَ دَ', 'رَ شَ ذَ', 'سَ شَ اَ'],
+      ['شَ زَ رَ', 'اَ سَ شَ', 'ذَ خَ زَ'],
+      ['اَ بَ تَ', 'شَ زَ جَ', 'خَ سَ دَ'],
+      ['ثَ جَ حَ خَ دَ ذَ رَ زَ سَ شَ']
+    ],
+    [
+      ['', 'صَ', ''],
+      ['سَ رَ صَ', 'صَ شَ زَ', 'صَ اَ شَ'],
+      ['شَ رَ تَ', 'دَ سَ صَ', 'صَ ثَ ذَ'],
+      ['ذَ زَ صَ', 'حَ صَ دَ', 'سَ خَ صَ'],
+      ['سَ جَ زَ', 'شَ بَ صَ', 'حَ ذَ رَ'],
+      ['شَ رَ زَ', 'صَ جَ ذَ', 'صَ دَ خَ'],
+      ['اَ بَ تَ ثَ جَ حَ', 'ثَ خَ صَ'],
+      ['خَ دَ ذَ رَ زَ سَ شَ صَ']
+    ],
+    [
+      ['ضَ', 'صَ'],
+      ['اَ صَ ضَ', 'حَ ضَ رَ', 'صَ اَ ضَ'],
+      ['ضَ رَ بَ', 'شَ خَ زَ', 'شَ اَ ضَ'],
+      ['دَ شَ ضَ', 'صَ دَ زَ', 'صَ حَ ثَ'],
+      ['ضَ تَ ذَ', 'رَ صَ دَ', 'سَ حَ ذَ'],
+      ['سَ اَ شَ', 'ضَ جَ ذَ', 'ثَ خَ زَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ', 'صَ رَ ضَ'],
+      ['دَ ذَ رَ زَ سَ شَ صَ ضَ']
+    ],
+    [
+      ['طَ'],
+      ['حَ جَ طَ', 'زَ طَ شَ', 'طَ اَ ضَ'],
+      ['زَ دَ طَ', 'ذَ طَ سَ', 'تَ صَ ضَ'],
+      ['شَ ضَ ثَ', 'سَ رَ طَ', 'دَ ضَ صَ'],
+      ['بَ صَ ضَ', 'طَ حَ ذَ', 'شَ خَ طَ'],
+      ['ثَ اَ شَ', 'جَ زَ ضَ', 'ذَ رَ طَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ', 'سَ خَ طَ'],
+      ['دَ ذَ رَ زَ سَ شَ صَ ضَ طَ']
+    ],
+    [
+      ['ظَ', 'طَ'],
+      ['ظَ حَ ذَ', 'بَ طَ ظَ', 'ظَ اَ طَ'],
+      ['طَ حَ ذَ', 'دَ صَ ظَ', 'سَ ضَ ظَ'],
+      ['زَ خَ طَ', 'سَ رَ صَ', 'شَ اَ ظَ'],
+      ['تَ ضَ ظَ', 'زَ خَ ضَ', 'ثَ رَ ضَ'],
+      ['شَ طَ ظَ', 'جَ طَ ضَ', 'صَ دَ شَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ'],
+      ['رَ زَ سَ شَ صَ ضَ طَ ظَ']
+    ],
+    [
+      ['عَ'],
+      ['بَ عَ طَ', 'تَ عَ رَ', 'ظَ اَ عَ'],
+      ['دَ حَ ظَ', 'صَ عَ ضَ', 'صَ عَ زَ'],
+      ['شَ طَ عَ', 'سَ عَ ظَ', 'بَ عَ ثَ'],
+      ['زَ اَ ضَ', 'ضَ عَ شَ', 'جَ خَ ذَ'],
+      ['طَ عَ طَ', 'دَ طَ ضَ', 'عَ جَ ظَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ'],
+      ['رَ زَ سَ شَ صَ ضَ طَ ظَ عَ']
+    ],
+    [
+      ['غَ', 'عَ'],
+      ['عَ طَ غَ', 'دَ غَ ظَ', 'غَ اَ عَ'],
+      ['سَ طَ عَ', 'جَ غَ ظَ', 'ثَ عَ ظَ'],
+      ['صَ رَ عَ', 'شَ غَ طَ', 'حَ رَ ظَ'],
+      ['تَ غَ ضَ', 'ضَ عَ ذَ', 'زَ خَ ظَ'],
+      ['بَ غَ صَ', 'طَ عَ ظَ', 'شَ رَ ظَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ رَ زَ'],
+      ['سَ شَ صَ ضَ طَ ظَ عَ غَ']
+    ],
+    [
+      ['فَ'],
+      ['غَ فَ صَ', 'فَ عَ ضَ', 'فَ اَ غَ'],
+      ['حَ فَ ظَ', 'غَ جَ زَ', 'فَ تَ حَ'],
+      ['شَ خَ ضَ', 'صَ فَ غَ', 'طَ عَ دَ'],
+      ['شَ غَ ضَ', 'خَ فَ ذَ', 'سَ غَ ظَ'],
+      ['ظَ فَ رَ', 'ثَ غَ طَ', 'فَ زَ عَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ رَ زَ'],
+      ['سَ شَ صَ ضَ طَ ظَ عَ غَ فَ']
+    ],
+    [
+      ['قَ', 'فَ'],
+      ['فَ رَ قَ', 'قَ طَ فَ', 'قَ بَ ضَ'],
+      ['سَ عَ فَ', 'فَ قَ ظَ', 'ثَ غَ ظَ'],
+      ['عَ قَ دَ', 'قَ فَ صَ', 'حَ ذَ خَ'],
+      ['زَ قَ قَ', 'شَ فَ عَ', 'ضَ غَ طَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ'],
+      ['صَ ضَ', 'سَ شَ', 'رَ زَ'],
+      ['فَ قَ', 'عَ غَ', 'طَ ظَ']
+    ],
+    [
+      ['كَ'],
+      ['كَ خَ قَ كَ قَ خَ كَ قَ'],
+      ['كَ قَ', 'كَ قَ خَ', 'كَ حَ قَ'],
+      ['شَ كَ رَ', 'عَ طَ فَ', 'ضَ حَ كَ'],
+      ['ذَ غَ سَ', 'قَ كَ فَ', 'جَ كَ تَ'],
+      ['زَ كَ طَ', 'غَ فَ كَ', 'صَ دَ ثَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ'],
+      ['رَ زَ سَ شَ صَ ضَ طَ ظَ'],
+      ['عَ غَ فَ قَ كَ']
+    ],
+    [
+      ['لَ'],
+      ['خَ لَ طَ', 'جَ عَ لَ', 'قَ لَ بَ'],
+      ['قَ فَ صَ', 'غَ لَ ظَ', 'ذَ كَ رَ'],
+      ['شَ كَ لَ', 'دَ غَ سَ', 'حَ لَ فَ'],
+      ['كَ لَ لَ', 'زَ تَ ظَ', 'ضَ رَ عَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ'],
+      ['صَ ضَ', 'سَ شَ', 'رَ زَ'],
+      ['طَ ظَ عَ غَ فَ قَ كَ لَ']
+    ],
+    [
+      ['مَ'],
+      ['جَ مَ عَ', 'لَ مَ سَ', 'غَ مَ ضَ'],
+      ['خَ لَ طَ', 'كَ رَ مَ', 'فَ رَ ضَ'],
+      ['مَ زَ قَ', 'ظَ تَ ذَ', 'صَ مَ دَ'],
+      ['غَ مَ مَ', 'فَ كَ حَ', 'شَ مَ لَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ'],
+      ['رَ زَ سَ شَ صَ ضَ طَ ظَ'],
+      ['عَ غَ فَ قَ كَ لَ مَ']
+    ],
+    [
+      ['نَ'],
+      ['طَ عَ نَ', 'نَ غَ شَ', 'نَ ظَ فَ'],
+      ['خَ لَ قَ', 'قَ رَ نَ', 'صَ مَ ضَ'],
+      ['جَ نَ دَ', 'كَ ذَ بَ', 'زَ مَ نَ'],
+      ['مَ نَ نَ', 'لَ حَ ظَ', 'كَ نَ سَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ'],
+      ['رَ زَ سَ شَ صَ ضَ طَ ظَ'],
+      ['عَ غَ فَ قَ كَ لَ مَ نَ']
+    ],
+    [
+      ['وَ'],
+      ['دَ وَ مَ', 'وَ لَ غَ', 'وَ زَ رَ'],
+      ['ظَ جَ عَ', 'قَ وَ مَ', 'فَ طَ نَ'],
+      ['خَ وَ صَ', 'سَ كَ تَ', 'كَ وَ نَ'],
+      ['وَ نَ وَ', 'ذَ حَ ضَ', 'شَ وَ لَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ'],
+      ['رَ زَ سَ شَ صَ ضَ طَ ظَ'],
+      ['عَ غَ فَ قَ كَ لَ مَ نَ وَ']
+    ],
+    [
+      ['ﮪَ'],
+      ['دَ وَ مَ', 'جَ ﮪَ دَ', 'ﮪَ مَ شَ'],
+      ['وَ ضَ حَ', 'طَ ﮪَ رَ', 'فَ خَ عَ'],
+      ['زَ ﮪَ قَ', 'كَ مَ نَ', 'وَ ﮪَ ظَ'],
+      ['جَ ﮪَ ﮪَ', 'ذَ غَ صَ', 'سَ ﮪَ لَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ'],
+      ['رَ زَ سَ شَ صَ ضَ طَ ظَ'],
+      ['عَ غَ فَ قَ كَ لَ مَ نَ وَ ﮪَ']
+    ],
+    [
+      ['يَ'],
+      ['زَ يَ نَ', 'ضَ حَ يَ', 'ضَ يَ رَ'],
+      ['ﮪَ يَ خَ', 'وَ كَ لَ', 'سَ يَ غَ'],
+      ['وَ قَ فَ', 'شَ يَ عَ', 'طَ ﮪَ ظَ'],
+      ['يَ دَ يَ', 'جَ ذَ ثَ', 'ﮪَ يَ مَ'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ رَ زَ'],
+      ['سَ شَ صَ ضَ طَ ظَ عَ غَ'],
+      ['فَ قَ كَ لَ مَ نَ وَ ﮪَ يَ']
+    ],
+    [
+      ['اَ = أَ = ءَ'],
+      ['مَ = مَـ', '', 'رَ = رَ'],
+      ['قَ رَ أَ', 'بَ رَ رَ', 'بَ رَ اَ'],
+      ['سَ ءَ لَ', 'جَ ـزَ أَ', 'اَ مَـ مَ'],
+      ['غَ مَـ مَ', 'مَ دَ حَ', 'رَ ـزَ قَ'],
+      ['مَـ دَ مَ', 'مَـ شَ ءَ', 'لَ ءَ كَ'],
+      ['كَ بَ دَ', 'جَ زَ مَ', 'سَ ىَ رَ'],
+      ['حَ سَ نَ', 'كَ لَ مَـ', 'مَ قَ تَ'],
+      ['كَ يَ', 'جَ كَ', 'سَ يَ'],
+      ['سَ نَ', 'لَ مَـ', 'قَ تَ']
+    ],
+    [
+      ['دَ ذَ رَ', 'جَ حَ خَ', 'ثَ بَ تَ'],
+      ['طَ ظَ عَ', 'اَ صَ ظَ', 'زَ سَ شَ'],
+      ['نَ وَ هَـ', 'كَ لَ مَ', 'غَ فَ قَ'],
+      ['ءَ اَ رَ', 'بَ يَ نَ', 'حَ هَـ لَ'],
+      ['دَ ذَ رَ', 'جَ حَ خَ', 'بَ عَ ثَ'],
+      ['طَ ظَ عَ', 'اَ صَ ضَ', 'زَ سَ شَ'],
+      ['نَ وَ هَـ', 'كَ لَ مَ', 'غَ فَ قَ'],
+      ['مَـ نَ وَ', 'اَ كَ لَ', 'هَـ يَ تَ']
+    ],
+    [
+      ['PENTING : BEDAKAN DENGAN JELAS ANTARA'],
+      ['ثَ - سَ', '', 'اَ - عَ'],
+      ['ثَ - شَ', '', 'حَ - هَـ'],
+      ['سَ - شَ', '', 'جَ - زَ'],
+      ['سَ - صَ', '', 'ذَ - زَ'],
+      ['تَ - طَ', '', 'خَ - غَ'],
+      ['ذَ - ظَ', '', 'خَ - قَ'],
+      ['ظَ - ضَ', '', 'كَ - قَ'],
+      ['غَ - قَ', '', 'يَ - زَ']
+    ],
+    [
+      ['EBTA :', 'Khusus jilid 1 ini jika belum menguasai ulang-ulanglah!'],
+      ['اَ بَ تَ ثَ جَ حَ خَ دَ ذَ رَ زَ'],
+      ['سَ شَ صَ ضَ طَ ظَ عَ غَ'],
+      ['فَ قَ كَ لَ مَ نَ وَ هَـ ءَ يَ'],
+      ['يَ ءَ هَـ وَ نَ مَ لَ كَ قَ فَ'],
+      ['غَ عَ ظَ طَ ضَ صَ شَ سَ'],
+      ['زَ رَ ذَ دَ خَ حَ جَ ثَ تَ بَ اَ'],
+      ['BILA SUDAH LANCAR DAN BENAR BOLEH DINAIKKAN']
+    ],
+    [
+      ['BUNYI PERHURUF HIJAIYAH'],
+      ['ثَ', 'تَ', 'بَ', 'اَ'],
+      ['دَ', 'خَ', 'حَ', 'جَ'],
+      ['سَ', 'زَ', 'رَ', 'ذَ'],
+      ['طَ', 'ضَ', 'صَ', 'شَ'],
+      ['', 'غَ', 'عَ', 'ظَ'],
+      ['لَ', 'كَ', 'قَ', 'فَ'],
+      ['هَـ', 'وَ', 'نَ', 'مَ'],
+      ['', 'يَ', 'ءَ', ''],
+    ],
+    [
+      ['INDEKS - HURUF'],
+      ['Alif اَ', '*' ,'ZA زَ (Zai)', '*' ,'QA قَ (Qaf)'],
+      ['BA بَ (Ba\')', '*' ,'SA سَ (Sin)', '*' ,'KA كَ (Kaf)'],
+      ['TA تَ (Ta\')', '*' , 'SYA شَ (Syin)', '*' , 'LA لَ (Lam)'],
+      ['SA ثَ (Sa\')', '*' , 'SA صَ (Sad)', '*' , 'MA مَ (Mim)'],
+      ['JA جَ (Jim)', '*' , 'DA ضَ (Dad)', '*' , 'NA نَ (Nun)'],
+      ['HA حَ (Ha)', '*' , 'TA طَ (Ta\')', '*' , 'WA وَ (Wau)'],
+      ['KHA خَ (Kha)', '*' , 'ZA ظَ (Za\')', '*' , 'HA هـَ (Ha)'],
+      ['DA دَ (Dal)', '*' , '\'A عَ (\'Ain)', '*' , 'A ءَ (Hamzah)'],
+      ['DA ذَ (Dal)', '*' , 'GA غَ (Gain)', '*' , 'YA يَ (Ya)'],
+      ['RA رَ (Ra\')', '*' , 'FA فَ (Fa\')', '*' , ''],
+      ['Ket. (Ba\') (Ta\') dst. adalah nama-nama huruf'],
+      ['halaman ini boleh digunakan, sekedar untuk membantu titian ingatan bacaan-bacaan yang khilaf. Bagi santri tidak ada halangan/boleh belajar mengenal sendiri nama-nama huruf hijaiyah, namun untuk huruf-huruf yang sulit, seperti غَ / ظَ / ضَ / harus ditanyakan pada yang ahli.'],
+      [' ۱- ۲- ۳ - ۴ - ۵ - ۶ - ۷ - ۸ - ۹ - ۱۰ ']
+    ]
+  ];
+
+  let fontSize = 32; // ukuran awal
+  //let currentPage = 0;
+  let currentPage = parseInt(localStorage.getItem("iqro3_lastPage")) || 0;
+  const audio = new Audio();
+
+  function renderPage() {
+    const content = document.getElementById('content');
+    content.innerHTML = '';
+    const progress = ((currentPage + 1) / pages.length) * 100;
+    document.getElementById("progressFill").style.width = progress + "%";
+
+    pages[currentPage].forEach(line => {
+      const lineDiv = document.createElement('div');
+      lineDiv.className = 'line';
+
+      line.forEach(text => {
+        const span = document.createElement('div');
+        span.className = 'item';
+        span.style.fontSize = fontSize + "px";
+        //span.textContent = text;
+        span.innerHTML = text;
+        //span.onclick = () => play(span, text);
+        span.onclick = () => play(span, span.innerText);
+        lineDiv.appendChild(span);
+      });
+
+      content.appendChild(lineDiv);
+    });
+
+    document.getElementById('jumpPage').value = currentPage + 1;
+    document.getElementById('totalPage').textContent = pages.length;
+
+    // tandai halaman aktive
+  updateActivePage();
+
+  // simpan halaman terakhir
+localStorage.setItem("iqro3_lastPage", currentPage);
+  }
+
+
+//  function changePage(direction) {
+//    const newPage = currentPage + direction;
+//    if (newPage >= 0 && newPage < pages.length) {
+//      currentPage = newPage;
+//      renderPage();
+//    }
+//  }
+function changePage(direction) {
+  const newPage = currentPage + direction;
+  if (newPage >= 0 && newPage < pages.length) {
+
+    const content = document.getElementById('content');
+
+    // tentukan arah animasi
+    const animationClass = direction > 0 ? 
+        "slide-in-right" : 
+        "slide-in-left";
+
+    content.classList.remove("slide-in-right", "slide-in-left");
+
+    currentPage = newPage;
+    renderPage();
+
+    // trigger animasi
+    void content.offsetWidth; // reset animation
+    content.classList.add(animationClass);
+  }
+}
+
+document.getElementById('jumpPage').addEventListener('change', function () {
+  const page = parseInt(this.value) - 1;
+  if (page >= 0 && page < pages.length) {
+
+    const content = document.getElementById('content');
+
+    content.classList.remove("slide-in-right", "slide-in-left");
+
+    currentPage = page;
+    renderPage();
+
+    void content.offsetWidth;
+    content.classList.add("slide-in-right");
+
+  } else {
+    this.value = currentPage + 1;
+  }
+});
+
+  // Lompat langsung ke halaman
+//  document.getElementById('jumpPage').addEventListener('change', function () {
+//    const page = parseInt(this.value) - 1;
+//    if (page >= 0 && page < pages.length) {
+//      currentPage = page;
+//      renderPage();
+//    } else {
+//      this.value = currentPage + 1;
+//    }
+//  });
+
+  function play(el, text) {
+    document.querySelectorAll('.item').forEach(item => item.classList.remove('active'));
+    el.classList.add('active');
+
+    const soundEnabled = document.getElementById('soundToggle').checked;
+    if (!soundEnabled) return;
+
+    // STOP suara sebelumnya
+    audio.pause();
+    audio.currentTime = 0;
+
+    // Encode supaya karakter Arab aman
+    const fileName = encodeURIComponent(text) + ".mp3";
+    audio.src = "audio01/" + fileName;
+    audio.play().catch(err => console.log("Audio tidak ditemukan:", err));
+  }
+
+  function changeFont(amount) {
+  fontSize += amount;
+
+  if (fontSize < 20) fontSize = 20;   // batas minimum
+  if (fontSize > 80) fontSize = 80;   // batas maksimum
+
+  renderPage();  // render ulang supaya ukuran berubah
+}
+
+function resetFont() {
+  fontSize = 32;
+  renderPage();
+}
+
+function toggleMenu() {
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
+}
+
+  renderPage();
+</script>
+
+<script>
+  // Fade in saat halaman selesai load
+  window.addEventListener("load", function () {
+    document.body.classList.add("fade-in");
+  });
+
+  // Tangkap semua link
+  document.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", function (e) {
+      const href = this.getAttribute("href");
+
+      // kalau link internal
+      if (href && !href.startsWith("#") && !this.hasAttribute("target")) {
+        e.preventDefault();
+        document.body.classList.remove("fade-in");
+        document.body.classList.add("fade-out");
+
+        setTimeout(() => {
+          window.location.href = href;
+        }, 400);
+      }
+    });
+  });
+</script>
+<script>
+// === WARNA PENUNJUK ===
+const colorOptions = document.querySelectorAll(".color-option");
+
+colorOptions.forEach(option => {
+  option.addEventListener("click", function() {
+    const color = this.getAttribute("data-color");
+
+    // ubah warna
+    document.documentElement.style.setProperty("--active-color", color);
+
+    // simpan ke localStorage
+    localStorage.setItem("activeColor", color);
+  });
+});
+
+// load warna tersimpan saat buka halaman
+window.addEventListener("load", function() {
+  const savedColor = localStorage.getItem("activeColor");
+  if (savedColor) {
+    document.documentElement.style.setProperty("--active-color", savedColor);
+  }
+});
+
+// === WARNA TULISAN AKTIF ===
+const textColorOptions = document.querySelectorAll(".text-color-option");
+
+textColorOptions.forEach(option => {
+  option.addEventListener("click", function() {
+    const color = this.getAttribute("data-color");
+
+    document.documentElement.style.setProperty("--active-text", color);
+
+    localStorage.setItem("activeTextColor", color);
+  });
+});
+
+// load saat halaman dibuka
+window.addEventListener("load", function() {
+  const savedTextColor = localStorage.getItem("activeTextColor");
+  if (savedTextColor) {
+    document.documentElement.style.setProperty("--active-text", savedTextColor);
+  }
+});
+
+</script>
+<script>
+const drawer = document.getElementById("pageDrawer");
+
+document.getElementById("openPageList").addEventListener("click", () => {
+  drawer.classList.toggle("open");
+});
+//const drawer = document.getElementById("pageDrawer");
+//const openBtn = document.getElementById("openPageList");
+
+//openBtn.addEventListener("click", function() {
+//  drawer.classList.toggle("open");
+//});
+
+//function goToPage(pageNumber) {
+//  currentPage = pageNumber;
+//  renderPage();
+//  drawer.classList.remove("open");
+//}
+
+//function goToPage(index) {
+//  currentPage = index;
+//  renderPage();
+
+  // 🔥 tutup drawer setelah klik
+   //document.getElementById("pageDrawer").classList.remove("open");
+   //document.querySelector(".overlay").classList.remove("show");
+//}
+function goToPage(index) {
+  currentPage = index;
+  renderPage();
+
+  // hanya tutup kalau layar kecil
+  if (window.innerWidth < 768) {
+    document.getElementById("pageDrawer").classList.remove("open");
+  }
+}
+//const pageList = document.querySelector(".page-list");
+
+//pages.forEach((_, index) => {
+//  const li = document.createElement("li");
+//  li.textContent = "Halaman " + (index + 1);
+//  li.onclick = () => goToPage(index + 1);
+//  pageList.appendChild(li);
+//});
+//const pageList = document.getElementById("pageList");
+
+function generatePageList() {
+  pageList.innerHTML = "";
+
+  pages.forEach((_, index) => {
+    const li = document.createElement("li");
+
+    li.textContent = "Halaman " + (index + 1);
+
+    li.addEventListener("click", function() {
+      currentPage = index;
+      renderPage();
+      drawer.classList.remove("open");
+    });
+
+    pageList.appendChild(li);
+  });
+}
+
+function updateActivePage() {
+  const items = document.querySelectorAll("#pageList li");
+
+  items.forEach((li, index) => {
+    li.classList.toggle("active-page", index === currentPage);
+  });
+}
+
+generatePageList();
+
+function updateActivePage() {
+  const items = document.querySelectorAll("#pageList li");
+
+  items.forEach((li, index) => {
+    if (index === currentPage) {
+      li.classList.add("active-page");
+
+      // 🔥 auto scroll ke halaman aktif
+      li.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+    } else {
+      li.classList.remove("active-page");
+    }
+  });
+}
+
+//document.querySelectorAll(".page-list li").forEach((li, i) => {
+//  li.classList.toggle("active-page", i === currentPage);
+//});
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+const contentArea = document.querySelector(".content-area");
+
+contentArea.addEventListener("touchstart", e => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+contentArea.addEventListener("touchend", e => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  const swipeDistance = touchEndX - touchStartX;
+
+  if (swipeDistance > 80) {
+    changePage(-1); // swipe kanan
+  }
+
+  if (swipeDistance < -80) {
+    changePage(1); // swipe kiri
+  }
+}
+</script>
+
+<script>
+function startTour() {
+    introJs().setOptions({
+        nextLabel: 'Lanjut ➡',
+        prevLabel: '⬅ Kembali',
+        doneLabel: 'Selesai ✅',
+        showProgress: true,
+        showBullets: false
+    }).start();
+}
+</script>
+<!--
+<script>
+  let lastScroll = 0;
+
+const header = document.querySelector("header");
+const footer = document.querySelector("footer");
+
+document.querySelector(".content-area").addEventListener("scroll", function () {
+
+  const currentScroll = this.scrollTop;
+
+  if (currentScroll > lastScroll) {
+    header.style.transform = "translateY(-100%)";
+    footer.style.transform = "translateY(100%)";
+  } else {
+    header.style.transform = "translateY(0)";
+    footer.style.transform = "translateY(0)";
+  }
+
+  lastScroll = currentScroll;
+});
+</script>
+-->
+</body>
+</html>
